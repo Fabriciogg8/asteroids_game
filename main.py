@@ -2,6 +2,7 @@
 # the open-source pygame library
 # throughout this file
 import pygame 
+import sys
 from constants import *
 from player import Player
 from asteroid import Asteroid
@@ -35,9 +36,13 @@ def main():
         
         for object in updatable:
             object.update(dt)
+        
+        for asteroid in asteroids:
+            if asteroid.check_collisions(player):
+                sys.exit()
+        
         for object in drawable:
             object.draw(screen)
-        
         pygame.display.flip()
         delta_time = clock.tick(60) 
         dt = delta_time/1000
